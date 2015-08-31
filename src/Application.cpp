@@ -7,10 +7,10 @@ Application::~Application()
 		delete mActiveScene;
 }
 
-Application::Application() : mActiveScene(nullptr), mWindow(sf::VideoMode(800,600), "Atari Breakout"), mHighscore(0)
+Application::Application() : mActiveScene(nullptr), mWindow(sf::VideoMode(800,600), "Snake"), mHighscore(0)
 {
 	mWindow.setVerticalSyncEnabled(true);
-	mFont.loadFromFile("D:/Programmieren/AtariBreakout/AtariBreakout/data/VideoPhreak.ttf");
+	mFont.loadFromFile("D:/Programmieren/Snake/data/VideoPhreak.ttf");
 }
 
 void Application::setActiveScene(Scene* ptr)
@@ -52,7 +52,7 @@ void Application::update()
 
 void Application::render()
 {
-	mWindow.clear(sf::Color(46, 46, 46));
+	mWindow.clear(sf::Color::Black);
 
 	if (mActiveScene)
 		mActiveScene->render();
