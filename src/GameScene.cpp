@@ -71,36 +71,12 @@ void GameScene::update()
 		mSnake.setRightMovement();
 	}
 
-	//ball clamping of three sides
-	/*if (mBall.getPosition().x <= 0.f)
-	{
-		mBall.setPosition(0.f, mBall.getPosition().y);
-		mBallSpeed.x *= -1.f;
-	}
-	else if (mBall.getPosition().y <= 0.f)
-	{
-		mBall.setPosition(mBall.getPosition().x, 0.f);
-		mBallSpeed.y *= -1.f;
-	}
-	else if ((mBall.getPosition().x + mBall.getRadius()*2.f) >= getApp().getWindow().getSize().x)
-	{
-		mBall.setPosition(getApp().getWindow().getSize().x - mBall.getRadius()*2.f, mBall.getPosition().y);
-		mBallSpeed.x *= -1.f;
-	}
-	//ball and bat collision
-	else if (((mBall.getPosition().y + mBall.getRadius()*2.f) >= mBat.getPosition().y) && (mBall.getPosition().x >= (mBat.getPosition().x - mBall.getRadius())) && (mBall.getPosition().x <= (mBat.getPosition().x + mBat.getSize().x - mBall.getRadius())))
-	{
-		mBall.setPosition(mBall.getPosition().x, (mBat.getPosition().y) - mBall.getRadius() * 2.f - 1.f);
-		mBallSpeed.y *= -1.f;
-	}
-	//game over -> new Scene
-	else if ((mBall.getPosition().y + mBall.getRadius()*2.f) >= mBat.getPosition().y)
-	{
+	//check game over(without collision with itself)
+
+	if (mSnake.getHead().getPosition().x <= 0 || mSnake.getHead().getPosition().y <= 0 ||
+		mSnake.getHead().getPosition().x + 10 >= getApp().getWindow().getSize().x ||
+		mSnake.getHead().getPosition().y + 10 >= getApp().getWindow().getSize().y)
 		getApp().setActiveScene(new GameOverScene(getApp()));
-	}
-	*/
-	
-	
 	
 	
 	

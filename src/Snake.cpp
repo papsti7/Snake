@@ -1,7 +1,7 @@
 #include "Snake.h"
 
 
-Snake::Snake(sf::RenderWindow& window): mSection{10.f, 7.5f}, mLenght(0)//, mVelocity{5.f, 0.f}
+Snake::Snake(sf::RenderWindow& window): mSection{10.f, 10.f}, mLenght(0)//, mVelocity{5.f, 0.f}
 {
 	//head
 	mHead.setFillColor(sf::Color::Green);
@@ -49,6 +49,12 @@ void Snake::setUpMovement()
 	temp_head = getHead();
 	temp_head.move(0.f, -temp_head.getSize().y);
 	mBody.insert(mBody.begin(), temp_head);
+	if (mBody.size() > 1)
+	{
+		mBody.at(1).setFillColor(sf::Color::Black);
+		mBody.at(1).setOutlineColor(sf::Color::Green);
+		mBody.at(1).setOutlineThickness(-2.f);
+	}
 	mHead = temp_head;
 	mBody.pop_back();
 }
@@ -59,6 +65,12 @@ void Snake::setDownMovement()
 	temp_head = getHead();
 	temp_head.move(0.f, temp_head.getSize().y);
 	mBody.insert(mBody.begin(), temp_head);
+	if (mBody.size() > 1)
+	{
+		mBody.at(1).setFillColor(sf::Color::Black);
+		mBody.at(1).setOutlineColor(sf::Color::Green);
+		mBody.at(1).setOutlineThickness(-2.f);
+	}
 	mHead = temp_head;
 	mBody.pop_back();
 }
@@ -69,6 +81,12 @@ void Snake::setLeftMovement()
 	temp_head = getHead();
 	temp_head.move(-temp_head.getSize().x, 0.f);
 	mBody.insert(mBody.begin(), temp_head);
+	if (mBody.size() > 1)
+	{
+		mBody.at(1).setFillColor(sf::Color::Black);
+		mBody.at(1).setOutlineColor(sf::Color::Green);
+		mBody.at(1).setOutlineThickness(-2.f);
+	}
 	mHead = temp_head;
 	mBody.pop_back();
 }
@@ -79,6 +97,12 @@ void Snake::setRightMovement()
 	temp_head = getHead();
 	temp_head.move(temp_head.getSize().x, 0.f);
 	mBody.insert(mBody.begin(), temp_head);
+	if (mBody.size() > 1)
+	{
+		mBody.at(1).setFillColor(sf::Color::Black);
+		mBody.at(1).setOutlineColor(sf::Color::Green);
+		mBody.at(1).setOutlineThickness(-2.f);
+	}
 	mHead = temp_head;
 	mBody.pop_back();
 }
