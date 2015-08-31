@@ -1,7 +1,7 @@
 #include "GameScene.h"
 
 
-GameScene::GameScene(Application& app) : Scene(app)
+GameScene::GameScene(Application& app) : Scene(app), mSnake(getApp().getWindow())
 {
 	//init Highscore
 	getApp().resetHighscore();
@@ -10,29 +10,37 @@ GameScene::GameScene(Application& app) : Scene(app)
 	mHighscore.setColor(sf::Color(255, 255, 255, 128));
 	mHighscore.setPosition(10.f, 10.f);
 
+	
+	
+
 }
 
 void GameScene::processEvent(const sf::Event& e)
 {
-	if(e.type == sf::Event::KeyReleased)
-	if (e.key.code == sf::Keyboard::Delete)
-	{
-		getApp().setActiveScene(new GameOverScene(getApp()));
-	}
+	if(e.type == sf::Event::KeyPressed)
+		switch (e.key.code)
+		{
+		case sf::Keyboard::Up:
+			setDirectionActive(UP);
+			break;
+		case sf::Keyboard::Down:
+			setDirectionActive(DOWN);
+			break;
+		case sf::Keyboard::Left:
+			setDirectionActive(LEFT);
+			break;
+		case sf::Keyboard::Right:
+			setDirectionActive(RIGHT);
+			break;
+		default:
+			break;
+		}
+		
 }
 
 void GameScene::update()
 {
-	//Bat movement
-	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		mBat.move(-5.f, 0.f);
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		mBat.move(5.f, 0.f);
-	//bat clamping
-	if (mBat.getPosition().x <= 0.f)
-		mBat.setPosition(0.f, getApp().getWindow().getSize().y - (mBat.getSize().y + 25.f));
-	else if ((mBat.getPosition().x + mBat.getSize().x) >= getApp().getWindow().getSize().x)
-		mBat.setPosition(getApp().getWindow().getSize().x - mBat.getSize().x, getApp().getWindow().getSize().y - (mBat.getSize().y + 25.f));*/
+	
 
 
 	//calculate current score
@@ -70,10 +78,10 @@ void GameScene::update()
 	{
 		getApp().setActiveScene(new GameOverScene(getApp()));
 	}
+	*/
 	
+	//snake movement
 	
-	//ball movement
-	mBall.move(mBallSpeed);*/
 	
 	
 	
@@ -81,10 +89,42 @@ void GameScene::update()
 
 void GameScene::render()
 {
-	
-
-	//getApp().getWindow().draw(mBat);
+	for(auto& section: mSnake.getSnake())
+		getApp().getWindow().draw(section);
 	//getApp().getWindow().draw(mBall);
 	//show current score
 	getApp().getWindow().draw(mHighscore);
+}
+
+void GameScene::setDirectionActive(unsigned newDirection)
+{
+	switch (newDirection)
+	{
+	case UP:
+		mUp = true;
+		mDown = false;
+		mLeft = false;
+		mRight = false;
+		break;
+	case DOWN:
+		mUp = false;
+		mDown = true;
+		mLeft = false;
+		mRight = false;
+		break;
+	case LEFT:
+		mUp = false;
+		mDown = false;
+		mLeft = true;
+		mRight = false;
+		break;
+	case RIGHT:
+		mUp = false;
+		mDown = false;
+		mLeft = false;
+		mRight = true;
+		break;
+	default:
+		break;
+	}
 }
