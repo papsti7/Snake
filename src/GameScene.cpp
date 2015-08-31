@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include <iostream>
 
 
 GameScene::GameScene(Application& app) : Scene(app), mSnake(getApp().getWindow())
@@ -10,7 +11,7 @@ GameScene::GameScene(Application& app) : Scene(app), mSnake(getApp().getWindow()
 	mHighscore.setColor(sf::Color(255, 255, 255, 128));
 	mHighscore.setPosition(10.f, 10.f);
 
-	
+	setDirectionActive(RIGHT);
 	
 
 }
@@ -22,15 +23,19 @@ void GameScene::processEvent(const sf::Event& e)
 		{
 		case sf::Keyboard::Up:
 			setDirectionActive(UP);
+			//std::cout << "UP" << std::endl;
 			break;
 		case sf::Keyboard::Down:
 			setDirectionActive(DOWN);
+			//std::cout << "Down" << std::endl;
 			break;
 		case sf::Keyboard::Left:
 			setDirectionActive(LEFT);
+			//std::cout << "Left" << std::endl;
 			break;
 		case sf::Keyboard::Right:
 			setDirectionActive(RIGHT);
+			//std::cout << "Right" << std::endl;
 			break;
 		default:
 			break;
@@ -48,8 +53,23 @@ void GameScene::update()
 	strstring << "Score: " << getApp().getHighscore();
 	mHighscore.setString(strstring.str());
 
-	
-	
+	//snake movement
+	if (mUp)
+	{
+		mSnake.setUpMovement();
+	}
+	else if (mDown)
+	{
+		mSnake.setDownMovement();
+	}
+	else if (mLeft)
+	{
+		mSnake.setLeftMovement();
+	}
+	else if (mRight)
+	{
+		mSnake.setRightMovement();
+	}
 
 	//ball clamping of three sides
 	/*if (mBall.getPosition().x <= 0.f)
@@ -80,7 +100,7 @@ void GameScene::update()
 	}
 	*/
 	
-	//snake movement
+	
 	
 	
 	

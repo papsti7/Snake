@@ -9,17 +9,23 @@ class Snake
 public:
 	Snake(sf::RenderWindow& window);
 	
-	void changeVelocity(float x, float y);
+	//void changeVelocity(float x, float y);
 	void addSection();
 
 	const std::vector<sf::RectangleShape>& getSnake();
-	const sf::Vector2f& getVelocity();
+	//const sf::Vector2f& getVelocity();
+	sf::RectangleShape getHead();
+
+	void setUpMovement();
+	void setDownMovement();
+	void setLeftMovement();
+	void setRightMovement();
 
 private:
 	unsigned mLenght;
 	sf::Vector2f mSection;
-	sf::Vector2f mVelocity;
-
+	//
+	sf::RectangleShape mHead;
 	//body
 	std::vector<sf::RectangleShape> mBody;
 	sf::RectangleShape mBodySection;

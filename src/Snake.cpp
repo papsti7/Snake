@@ -1,27 +1,27 @@
 #include "Snake.h"
 
 
-Snake::Snake(sf::RenderWindow& window): mSection{10.f, 7.5f}, mVelocity{5.f, 0.f}
+Snake::Snake(sf::RenderWindow& window): mSection{10.f, 7.5f}, mLenght(0)//, mVelocity{5.f, 0.f}
 {
 	//head
-	sf::RectangleShape head;
-	head.setFillColor(sf::Color::Green);
-	head.setSize(mSection);
-	head.setPosition(window.getSize().x / 2.f - mSection.x / 2.f, window.getSize().y / 2.f - mSection.y / 2.f);
-	mBody.push_back(head);
+	mHead.setFillColor(sf::Color::Green);
+	mHead.setSize(mSection);
+	mHead.setPosition(window.getSize().x / 2.f - mSection.x / 2.f, window.getSize().y / 2.f - mSection.y / 2.f);
+	mBody.push_back(mHead);
 	//init bodysection
-	head.setFillColor(sf::Color::Black);
-	head.setOutlineColor(sf::Color::Green);
-	head.setOutlineThickness(-2.f);
-	mBodySection = head;
+	mBodySection = getHead();
+	mBodySection.setFillColor(sf::Color::Black);
+	mBodySection.setOutlineColor(sf::Color::Green);
+	mBodySection.setOutlineThickness(-2.f);
+	
 
 	
 }
 
-void Snake::changeVelocity(float x, float y)
+/*void Snake::changeVelocity(float x, float y)
 {
 	mVelocity = { x, y}; 
-}
+}*/
 
 void Snake::addSection()
 {
@@ -33,7 +33,52 @@ const std::vector<sf::RectangleShape>& Snake::getSnake()
 	return mBody;
 }
 
-const sf::Vector2f& Snake::getVelocity()
+/*const sf::Vector2f& Snake::getVelocity()
 {
 	return mVelocity;
+}*/
+
+sf::RectangleShape Snake::getHead()
+{
+	return mHead;
+}
+
+void Snake::setUpMovement()
+{
+	sf::RectangleShape temp_head;
+	temp_head = getHead();
+	temp_head.move(0.f, -temp_head.getSize().y);
+	mBody.insert(mBody.begin(), temp_head);
+	mHead = temp_head;
+	mBody.pop_back();
+}
+
+void Snake::setDownMovement()
+{
+	sf::RectangleShape temp_head;
+	temp_head = getHead();
+	temp_head.move(0.f, temp_head.getSize().y);
+	mBody.insert(mBody.begin(), temp_head);
+	mHead = temp_head;
+	mBody.pop_back();
+}
+
+void Snake::setLeftMovement()
+{
+	sf::RectangleShape temp_head;
+	temp_head = getHead();
+	temp_head.move(-temp_head.getSize().x, 0.f);
+	mBody.insert(mBody.begin(), temp_head);
+	mHead = temp_head;
+	mBody.pop_back();
+}
+
+void Snake::setRightMovement()
+{
+	sf::RectangleShape temp_head;
+	temp_head = getHead();
+	temp_head.move(temp_head.getSize().x, 0.f);
+	mBody.insert(mBody.begin(), temp_head);
+	mHead = temp_head;
+	mBody.pop_back();
 }
