@@ -25,7 +25,8 @@ Snake::Snake(sf::RenderWindow& window): mSection{10.f, 10.f}, mLenght(0)//, mVel
 
 void Snake::addSection()
 {
-	//mBody.push_back()
+	mBodySection.setPosition(getLastPos());
+	mBody.push_back(mBodySection);
 }
 
 const std::vector<sf::RectangleShape>& Snake::getSnake()
@@ -105,4 +106,11 @@ void Snake::setRightMovement()
 	}
 	mHead = temp_head;
 	mBody.pop_back();
+}
+
+sf::Vector2f Snake::getLastPos()
+{
+	sf::RectangleShape temp_rect = mBody.back();
+	
+	return{ temp_rect.getPosition().x + 10.f, temp_rect.getPosition().y };
 }

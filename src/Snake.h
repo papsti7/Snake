@@ -10,10 +10,12 @@ public:
 	Snake(sf::RenderWindow& window);
 	
 	//void changeVelocity(float x, float y);
+	
 	void addSection();
 
 	const std::vector<sf::RectangleShape>& getSnake();
 	//const sf::Vector2f& getVelocity();
+	
 	sf::RectangleShape getHead();
 
 	void setUpMovement();
@@ -30,4 +32,5 @@ private:
 	std::vector<sf::RectangleShape> mBody;
 	sf::RectangleShape mBodySection;
 
+	sf::Vector2f getLastPos();
 };

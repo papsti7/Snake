@@ -10,6 +10,7 @@ Application::~Application()
 Application::Application() : mActiveScene(nullptr), mWindow(sf::VideoMode(800,600), "Snake"), mHighscore(0)
 {
 	mWindow.setVerticalSyncEnabled(true);
+	//mWindow.setFramerateLimit(1);
 	mFont.loadFromFile("D:/Programmieren/Snake/data/VideoPhreak.ttf");
 }
 

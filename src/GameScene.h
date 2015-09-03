@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "GameOverScene.h"
 #include "Snake.h"
+#include "Fruit.h"
 
 
 #include <vector>
@@ -33,6 +34,7 @@ public:
 
 private:
 	Snake mSnake;
+	Fruit mFruit;
 	sf::Text mHighscore;
 
 	void setDirectionActive(unsigned newDirection);

@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-GameScene::GameScene(Application& app) : Scene(app), mSnake(getApp().getWindow())
+GameScene::GameScene(Application& app) : Scene(app), mSnake(getApp().getWindow()), mFruit(getApp())
 {
 	//init Highscore
 	getApp().resetHighscore();
@@ -46,7 +46,12 @@ void GameScene::processEvent(const sf::Event& e)
 void GameScene::update()
 {
 	
-
+	if (mSnake.getHead().getGlobalBounds().intersects(mFruit.getFruit().getGlobalBounds()))
+	{
+		getApp().increaseHighscore();
+		mFruit.update(getApp());
+		mSnake.addSection();
+	}
 
 	//calculate current score
 	std::stringstream strstring;
@@ -87,7 +92,8 @@ void GameScene::render()
 {
 	for(auto& section: mSnake.getSnake())
 		getApp().getWindow().draw(section);
-	//getApp().getWindow().draw(mBall);
+
+	getApp().getWindow().draw(mFruit.getFruit());
 	//show current score
 	getApp().getWindow().draw(mHighscore);
 }
