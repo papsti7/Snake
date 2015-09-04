@@ -38,7 +38,7 @@ void Application::run()
 		update(deltaTime);
 		render();
 		//Get frametime
-		deltaTime = frameTimer.reset();
+		deltaTime = frameTimer.restart();
 	}
 }
 

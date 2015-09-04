@@ -29,7 +29,7 @@ private:
 	unsigned mHighscore;
 
 	void processEvent(const sf::Event& e);
-	void update();
+	void update(const sf::Time& deltaTime);
 	void render();
 
 };

@@ -45,7 +45,7 @@ void GameScene::processEvent(const sf::Event& e)
 
 void GameScene::update(const sf::Time& deltaTime)
 {
-	const sf::Time jumpIntervall(sf::Seconds(0.5f));
+	const sf::Time jumpIntervall(sf::seconds(0.05f));
 	
 	mTimeSinceLastJump += deltaTime;
 	
@@ -70,14 +70,17 @@ void GameScene::update(const sf::Time& deltaTime)
 		{
 			mSnake.setRightMovement();
 		}
+
+		if (mSnake.getHead().getGlobalBounds().intersects(mFruit.getFruit().getGlobalBounds()))
+		{
+			getApp().increaseHighscore();
+			mFruit.update(getApp());
+			mSnake.addSection();
+		}
+
 	}
 	
-	if (mSnake.getHead().getGlobalBounds().intersects(mFruit.getFruit().getGlobalBounds()))
-	{
-		getApp().increaseHighscore();
-		mFruit.update(getApp());
-		mSnake.addSection();
-	}
+	
 
 	//calculate current score
 	std::stringstream strstring;
