@@ -8,7 +8,7 @@ public:
 	IntroScene(Application& app);
 
 	virtual void processEvent(const sf::Event& e);
-	virtual void update();
+	virtual void update(const sf::Time& time);
 	virtual void render();
 
 

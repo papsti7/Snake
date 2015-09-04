@@ -45,7 +45,7 @@ void GameOverScene::processEvent(const sf::Event& e)
 	}
 }
 
-void GameOverScene::update()
+void GameOverScene::update(const sf::Time& deltaTime)
 {
 	
 }

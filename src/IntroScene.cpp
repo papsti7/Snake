@@ -21,7 +21,7 @@ void IntroScene::processEvent(const sf::Event& e)
 	}
 }
 
-void IntroScene::update()
+void IntroScene::update(const sf::Time& deltaTime)
 {
 	
 }                                  

@@ -22,7 +22,7 @@ public:
 	GameScene(Application& app);
 
 	virtual void processEvent(const sf::Event& e);
-	virtual void update();
+	virtual void update(const sf::Time& deltaTime);
 	virtual void render();
 
 
@@ -44,5 +44,5 @@ private:
 	bool mLeft;
 	bool mRight;
 
-	
+	sf::Time mTimeSinceLastJump;	
 };

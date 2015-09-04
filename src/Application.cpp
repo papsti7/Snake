@@ -1,6 +1,8 @@
 #include "Application.h"
 #include "Scene.h"
 
+#include <SFML/System/Clock.hpp>
+
 Application::~Application()
 {
 	if(mActiveScene)
@@ -23,6 +25,8 @@ void Application::setActiveScene(Scene* ptr)
 
 void Application::run()
 {
+	sf::Clock frameTimer;
+	sf::Time deltaTime = sf::Time::Zero;
 	
 	while (mWindow.isOpen())
 	{
@@ -31,8 +35,10 @@ void Application::run()
 		{
 			processEvent(event);
 		}
-		update();
+		update(deltaTime);
 		render();
+		//Get frametime
+		deltaTime = frameTimer.reset();
 	}
 }
 
@@ -45,10 +51,10 @@ void Application::processEvent(const sf::Event& e)
 		mActiveScene->processEvent(e);
 }
 
-void Application::update()
+void Application::update(const sf::Time& deltaTime)
 {
 	if (mActiveScene)
-		mActiveScene->update();
+		mActiveScene->update(deltaTime);
 }
 
 void Application::render()

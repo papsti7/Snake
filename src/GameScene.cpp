@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-GameScene::GameScene(Application& app) : Scene(app), mSnake(getApp().getWindow()), mFruit(getApp())
+GameScene::GameScene(Application& app) : Scene(app), mSnake(getApp().getWindow()), mFruit(getApp()), mTimeSinceLastJump(sf::Time::Zero)
 {
 	//init Highscore
 	getApp().resetHighscore();
@@ -43,8 +43,34 @@ void GameScene::processEvent(const sf::Event& e)
 		
 }
 
-void GameScene::update()
+void GameScene::update(const sf::Time& deltaTime)
 {
+	const sf::Time jumpIntervall(sf::Seconds(0.5f));
+	
+	mTimeSinceLastJump += deltaTime;
+	
+	while(mTimeSinceLastJump >= jumpIntervall)
+	{
+		mTimeSinceLastJump -= jumpIntervall;
+		
+		//snake movement
+		if (mUp)
+		{
+			mSnake.setUpMovement();
+		}
+		else if (mDown)
+		{
+			mSnake.setDownMovement();
+		}
+		else if (mLeft)
+		{
+			mSnake.setLeftMovement();
+		}
+		else if (mRight)
+		{
+			mSnake.setRightMovement();
+		}
+	}
 	
 	if (mSnake.getHead().getGlobalBounds().intersects(mFruit.getFruit().getGlobalBounds()))
 	{
@@ -58,23 +84,7 @@ void GameScene::update()
 	strstring << "Score: " << getApp().getHighscore();
 	mHighscore.setString(strstring.str());
 
-	//snake movement
-	if (mUp)
-	{
-		mSnake.setUpMovement();
-	}
-	else if (mDown)
-	{
-		mSnake.setDownMovement();
-	}
-	else if (mLeft)
-	{
-		mSnake.setLeftMovement();
-	}
-	else if (mRight)
-	{
-		mSnake.setRightMovement();
-	}
+
 
 	//check game over(without collision with itself)
 

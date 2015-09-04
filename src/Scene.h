@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "SFML\Window.hpp"
 
+
 class Scene
 {
 public:
@@ -10,7 +11,7 @@ public:
 	
 
 	virtual void processEvent(const sf::Event& e) = 0;
-	virtual void update() = 0;
+	virtual void update(const sf::Time& deltaTime) = 0;
 	virtual void render() = 0;
 
 
