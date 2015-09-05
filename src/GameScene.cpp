@@ -11,7 +11,7 @@ GameScene::GameScene(Application& app) : Scene(app), mSnake(getApp().getWindow()
 	mHighscore.setColor(sf::Color(255, 255, 255, 128));
 	mHighscore.setPosition(10.f, 10.f);
 
-	setDirectionActive(RIGHT);
+	setDirectionActive(LEFT);
 	
 
 }
@@ -22,19 +22,23 @@ void GameScene::processEvent(const sf::Event& e)
 		switch (e.key.code)
 		{
 		case sf::Keyboard::Up:
-			setDirectionActive(UP);
+			if(!mDown)
+				setDirectionActive(UP);
 			//std::cout << "UP" << std::endl;
 			break;
 		case sf::Keyboard::Down:
-			setDirectionActive(DOWN);
+			if (!mUp)
+				setDirectionActive(DOWN);
 			//std::cout << "Down" << std::endl;
 			break;
 		case sf::Keyboard::Left:
-			setDirectionActive(LEFT);
+			if (!mRight)
+				setDirectionActive(LEFT);
 			//std::cout << "Left" << std::endl;
 			break;
 		case sf::Keyboard::Right:
-			setDirectionActive(RIGHT);
+			if (!mLeft)
+				setDirectionActive(RIGHT);
 			//std::cout << "Right" << std::endl;
 			break;
 		default:
@@ -75,29 +79,21 @@ void GameScene::update(const sf::Time& deltaTime)
 		{
 			getApp().increaseHighscore();
 			mFruit.update(getApp());
-			mSnake.addSection();
+			mSnake.setGrowing();
 		}
 
 	}
-	
-	
-
 	//calculate current score
 	std::stringstream strstring;
 	strstring << "Score: " << getApp().getHighscore();
 	mHighscore.setString(strstring.str());
 
-
-
-	//check game over(without collision with itself)
-
+	//check game over
 	if (mSnake.getHead().getPosition().x <= 0 || mSnake.getHead().getPosition().y <= 0 ||
 		mSnake.getHead().getPosition().x + 10 >= getApp().getWindow().getSize().x ||
-		mSnake.getHead().getPosition().y + 10 >= getApp().getWindow().getSize().y)
+		mSnake.getHead().getPosition().y + 10 >= getApp().getWindow().getSize().y ||
+		mSnake.checkCollisionWithItself())
 		getApp().setActiveScene(new GameOverScene(getApp()));
-	
-	
-	
 	
 }
 

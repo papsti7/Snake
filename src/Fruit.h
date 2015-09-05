@@ -16,7 +16,8 @@ public:
 
 private:
 	sf::RectangleShape mFruit;
-	Random random;
+	Random mRandom;
 
+	
 
 };

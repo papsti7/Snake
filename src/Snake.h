@@ -23,6 +23,10 @@ public:
 	void setLeftMovement();
 	void setRightMovement();
 
+	void setGrowing() { mGrowing = true; }
+
+	bool checkCollisionWithItself();
+
 private:
 	unsigned mLenght;
 	sf::Vector2f mSection;
@@ -33,4 +37,6 @@ private:
 	sf::RectangleShape mBodySection;
 
 	sf::Vector2f getLastPos();
+
+	bool mGrowing;
 };

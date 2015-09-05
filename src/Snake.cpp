@@ -1,7 +1,7 @@
 #include "Snake.h"
 
 
-Snake::Snake(sf::RenderWindow& window): mSection{10.f, 10.f}, mLenght(0)//, mVelocity{5.f, 0.f}
+Snake::Snake(sf::RenderWindow& window): mSection{10.f, 10.f}, mLenght(0), mGrowing(false)
 {
 	//head
 	mHead.setFillColor(sf::Color::Green);
@@ -13,6 +13,9 @@ Snake::Snake(sf::RenderWindow& window): mSection{10.f, 10.f}, mLenght(0)//, mVel
 	mBodySection.setFillColor(sf::Color::Black);
 	mBodySection.setOutlineColor(sf::Color::Green);
 	mBodySection.setOutlineThickness(-2.f);
+	addSection();
+	addSection();
+	addSection();
 	
 
 	
@@ -57,7 +60,14 @@ void Snake::setUpMovement()
 		mBody.at(1).setOutlineThickness(-2.f);
 	}
 	mHead = temp_head;
-	mBody.pop_back();
+	if (!mGrowing)
+	{
+		mBody.pop_back();
+	}
+	else if (mGrowing)
+	{
+		mGrowing = false;
+	}
 }
 
 void Snake::setDownMovement()
@@ -73,7 +83,14 @@ void Snake::setDownMovement()
 		mBody.at(1).setOutlineThickness(-2.f);
 	}
 	mHead = temp_head;
-	mBody.pop_back();
+	if (!mGrowing)
+	{
+		mBody.pop_back();
+	}
+	else if (mGrowing)
+	{
+		mGrowing = false;
+	}
 }
 
 void Snake::setLeftMovement()
@@ -89,7 +106,14 @@ void Snake::setLeftMovement()
 		mBody.at(1).setOutlineThickness(-2.f);
 	}
 	mHead = temp_head;
-	mBody.pop_back();
+	if (!mGrowing)
+	{
+		mBody.pop_back();
+	}
+	else if (mGrowing)
+	{
+		mGrowing = false;
+	}
 }
 
 void Snake::setRightMovement()
@@ -105,7 +129,14 @@ void Snake::setRightMovement()
 		mBody.at(1).setOutlineThickness(-2.f);
 	}
 	mHead = temp_head;
-	mBody.pop_back();
+	if (!mGrowing)
+	{
+		mBody.pop_back();
+	}
+	else if (mGrowing)
+	{
+		mGrowing = false;
+	}
 }
 
 sf::Vector2f Snake::getLastPos()
@@ -113,4 +144,13 @@ sf::Vector2f Snake::getLastPos()
 	sf::RectangleShape temp_rect = mBody.back();
 	
 	return{ temp_rect.getPosition().x + 10.f, temp_rect.getPosition().y };
+}
+
+bool Snake::checkCollisionWithItself()
+{
+	for (auto& it = mBody.begin() + 1; it != mBody.end(); it++)
+		if(mHead.getGlobalBounds().intersects(it->getGlobalBounds()))
+			return true;
+	
+	return false;
 }
